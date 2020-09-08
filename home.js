@@ -12,6 +12,6 @@ async function getHome() {
     }
 }
 
-window.onload = (() => {
+window.onload = function(){
     getHome();    
-});
+}

@@ -32,26 +32,27 @@
 			</div>
 		</nav>
 
-		<br/>
-		
-		<form action="" >
-		  <h1 class="h3 mb-2 font-weight-normal text-center	">Login</h1>
-		  
-		  <div class="form-group col-md-6 offset-md-3">
-			<label for="username">Username</label>
-			<input type="text" class="form-control" id="username"/>
-		  </div>
-		  
-		  <div class="form-group col-md-6 offset-md-3">
-			<label for="password">Password</label>
-			<input type="password" class="form-control" id="password"/>
-		  </div>
-		  
-		  <div class="form-group col-md-6 offset-md-3">
-		  	<button id="submit" type="submit" class="btn btn-primary col-md-12">Login</button>
-		  </div>
-		</form>
+		<div id="message"></div>
 
+		<div class="container">
+			<form novalidate id="loginForm">
+				<h1 class="h3 my-4 font-weight-normal text-center">Login</h1>
+				
+				<div class="form-group col-md-6 offset-md-3">
+					<label for="username">Username</label>
+					<input type="text" class="form-control" id="username"/>
+				</div>
+				
+				<div class="form-group col-md-6 offset-md-3">
+					<label for="password">Password</label>
+					<input type="password" class="form-control" id="password"/>
+				</div>
+				
+				<div class="form-group col-md-6 offset-md-3">
+					<button type="submit" id="loginButton" class="btn btn-primary col-md-12">Login</button>
+				</div>
+			</form>
+		</div>
 
 		<!-- Optional JavaScript -->
 		<!-- jQuery first, then Popper.js, then Bootstrap JS -->

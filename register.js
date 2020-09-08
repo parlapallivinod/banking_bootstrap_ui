@@ -56,6 +56,6 @@ window.onload = function() {
     event.preventDefault();
     registerButton.disabled = true;
     postRegistration();
-    setTimeout(() => {registerButton.disabled = false;}, BUTTION_DISABLE_TIME)
+    setTimeout(() => {registerButton.disabled = false;}, BUTTION_DISABLE_TIME);
   }
 }

@@ -26,13 +26,18 @@ function showMessage(element, message, type) {
     //console.log(alertType);
 
     let alertElement = 
-    "<div class=\"alert " + alertType + " alert-dismissible fade show mb-0\" role=\"alert\">" + 
         message +  
         "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">" + 
             "<span aria-hidden=\"true\">&times;</span>" + 
-        "</button>" + 
-    "</div>";
-    element.innerHTML = alertElement;
+        "</button>";
+ 
+    let messageDiv = document.createElement('div');
+    messageDiv.setAttribute("class", "alert " + alertType + " alert-dismissible fade show mb-0");
+    messageDiv.setAttribute("role", "alert");
+    messageDiv.innerHTML = alertElement;
+
+    element.prepend(messageDiv);
+    
 }
 
 async function home() {
@@ -138,6 +143,43 @@ async function accountDetails() {
           headers: {
             "Authorization": localStorage.getItem("Authorization")
           }
+        }
+      ).then(response => {
+            status = response.status;
+            return response.json();
+        })
+        .then(json => {
+            data = json;
+        })
+        .catch(e => {
+            status = 500;
+            data = e.message;
+        });
+    console.log("status");
+    console.log(status);
+    console.log("data");
+    console.log(data);
+    return new BankingResponse(status, data);
+}
+
+async function updateUserPassword(customer) {
+    console.log("CUSTOMER_API");
+    console.log(CUSTOMER_API);
+
+    console.log("customer");
+    console.log(customer);
+
+    let status;
+    let data;
+    await fetch(
+        CUSTOMER_API, 
+        {
+            method: "PUT",
+            body: JSON.stringify(customer),
+            headers: {
+                "Content-Type": "application/json;",
+                "Authorization": localStorage.getItem("Authorization")
+            }
         }
       ).then(response => {
             status = response.status;

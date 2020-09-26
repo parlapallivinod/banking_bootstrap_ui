@@ -23,7 +23,7 @@ async function postLogin() {
       setTimeout(() => {window.location.href = CUSTOMER_HOME_UI;}, BUTTION_DISABLE_TIME);
     } else {
     console.log("failure");
-    showMessage(message, "Invalid credentials.", "FAILURE");
+    showMessage(message, "Invalid credentials", "FAILURE");
   }
   
 }

@@ -1,7 +1,5 @@
 let registrationForm;
-let registerButton;
 let message;
-
 
 function clearRegistrationForm() {
   document.querySelector("#username").value = "";
@@ -30,9 +28,12 @@ async function postRegistration() {
   if (response.status == 201) {
     console.log("success");
     showMessage(message, 
-      "Registration completed successfully. Pleae login into you account to peform transactions.", 
+      "Registration completed successfully. Please login into you account to perform transactions.", 
       "SUCCESS");
       clearRegistrationForm();
+  } else if (response.status == 500) {
+    console.log("failure");
+    showMessage(message, response.data, "FAILURE");
   } else {
     console.log("failure");
     showMessage(message, response.data.message + "<br/>" + response.data.details, "FAILURE");
@@ -48,14 +49,10 @@ window.onload = function() {
   console.log("registrationForm");
   console.log(registrationForm);
 
-  registerButton = document.querySelector("#registerButton");
-  console.log("registerButton");
-  console.log(registerButton);
-
-  registrationForm.onsubmit = function(event) {
+  registrationForm.onsubmit = async function(event) {
     event.preventDefault();
-    registerButton.disabled = true;
-    postRegistration();
-    setTimeout(() => {registerButton.disabled = false;}, BUTTION_DISABLE_TIME);
+    showLoadingSpinner();
+    await postRegistration();
+    hideLoadingSpinner();
   }
 }

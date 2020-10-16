@@ -12,6 +12,8 @@ async function getHome() {
     }
 }
 
-window.onload = function(){
-    getHome();    
+window.onload = async function(){
+    showLoadingSpinner();
+    await getHome();
+    hideLoadingSpinner(); 
 }

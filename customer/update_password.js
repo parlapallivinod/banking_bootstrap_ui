@@ -1,13 +1,12 @@
 let logoutButton;
 let passwordUpdationForm;
-let passwordUpdateButton;
 let message;
 
 function clearPasswordUpdateForm() {
     document.querySelector("#password").value = "";
     document.querySelector("#newPassword").value = "";
     document.querySelector("#verifyNewPassword").value = "";
-  }
+}
 
 async function postUpdateUserPassword() {
     let basicAuth = localStorage.getItem("Authorization");
@@ -48,6 +47,9 @@ async function postUpdateUserPassword() {
             "Password updated successfully", 
             "SUCCESS");
             clearPasswordUpdateForm();
+    } else if (response.status == 500) {
+        console.log("failure");
+        showMessage(message, response.data, "FAILURE");
     } else {
       console.log("failure");
       showMessage(message, response.data.message + "<br/>" + response.data.details, "FAILURE");
@@ -71,14 +73,10 @@ window.onload = function() {
     console.log("passwordUpdationForm");
     console.log(passwordUpdationForm);
 
-    passwordUpdateButton = document.querySelector("#passwordUpdateButton");
-    console.log("passwordUpdateButton");
-    console.log(passwordUpdateButton);
-
-    passwordUpdationForm.onsubmit = function(event) {
+    passwordUpdationForm.onsubmit = async function(event) {
         event.preventDefault();
-        passwordUpdateButton.disabled = true;
-        postUpdateUserPassword();
-        setTimeout(() => {passwordUpdateButton.disabled = false;}, BUTTION_DISABLE_TIME);
+        showLoadingSpinner();
+        await postUpdateUserPassword();
+        hideLoadingSpinner();
     }
 }

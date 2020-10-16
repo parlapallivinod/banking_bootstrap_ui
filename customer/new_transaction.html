@@ -46,16 +46,40 @@
 
 		<div id="message"></div>
 
-		<div class="jumbotron jumbotron-fluid">
-			<div class="container">
-				<h1 class="display-4">New Transaction</h1>
-				<p class="lead">
-					Banking UI is used to simulate financial banking systems present in our society.
-				</p>
-				<p class="lead">
-					Users can browse account details, update their password and delete their account.
-					Users can browse transactions history and perform transactions of type deposit, withdraw and transfer on their accounts.
-				</p>
+		<div class="container">
+			<form novalidate id="newTransactionForm" >
+				<h3 class="h3 my-4 font-weight-normal text-center">New Transaction</h3>
+				
+				<div class="form-group col-md-6 offset-md-3">
+					<label for="amount">Amount</label>
+					<input type="number" class="form-control" id="amount"/>
+				</div>
+				
+				<div class="form-group col-md-6 offset-md-3">
+					<label for="type">Transaction Type</label>
+					<select id="type" class="form-control">
+						<option value="Choose..." selected>Choose...</option>
+						<option value="DEPOSIT">DEPOSIT</option>
+						<option value="WITHDRAW">WITHDRAW</option>
+						<option value="TRANSFER">TRANSFER</option>
+					</select>
+				</div>
+				
+				<div class="form-group col-md-6 offset-md-3" style="display:none;" id="toUserFormGroup">
+					<label for="toUser">toUser</label>
+					<input type="text" class="form-control" id="toUser" aria-describedby="toUserHelp"/>
+					<small id="toUserHelp" class="form-text text-muted">For "DEPOSIT" transaction type, don't need to fill toUser if you are depositing to your account.</small>
+				</div>
+
+				<div class="form-group col-md-6 offset-md-3">
+					<button type="submit" id="performTransactonButton" class="btn btn-primary col-md-12">Perform Transaction</button>
+				</div>
+			</form>
+		</div>
+
+		<div id="loadingSpinnerDiv" style="display:none; position:fixed; top:0%; left:0%; height:100%; width:100%; z-index:100; background-color: rgba(0, 0, 0, 0.5);" class="text-center"">
+			<div class="spinner-border text-light m-5" style="width: 3rem; height: 3rem;" role="status">
+				<span class="sr-only">Loading...</span>
 			</div>
 		</div>
 

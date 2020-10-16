@@ -1,6 +1,7 @@
 const BANKING_API = "http://localhost:8080/banking/api/v1";
-const REGISTRATION_API = BANKING_API + "/customers/registration"
-const CUSTOMER_API = BANKING_API + "/customers/";
+const CUSTOMER_API = BANKING_API + "/customers";
+const REGISTRATION_API = CUSTOMER_API + "/registration";
+const TRANSACTION_API = CUSTOMER_API + "/transactions";
 const BUTTION_DISABLE_TIME = 1000;
 
 const BANKING_UI = "http://localhost:9090";
@@ -13,6 +14,15 @@ function BankingResponse(status, data) {
     this.data = data;
 }
 
+function showLoadingSpinner() {
+    let loadingSpinnerDiv = document.querySelector("#loadingSpinnerDiv");
+    loadingSpinnerDiv.style.display = "block";
+}
+
+function hideLoadingSpinner() {
+    let loadingSpinnerDiv = document.querySelector("#loadingSpinnerDiv");
+    loadingSpinnerDiv.style.display = "none";
+}
 
 function showMessage(element, message, type) {
     let alertType = "alert-info";
@@ -199,6 +209,79 @@ async function updateUserPassword(customer) {
     return new BankingResponse(status, data);
 }
 
+async function deleteAccount() {
+    console.log("CUSTOMER_API");
+    console.log(CUSTOMER_API);
+
+    let status;
+    let data;
+    await fetch(
+        CUSTOMER_API, 
+        {
+          method: "DELETE",
+          headers: {
+            "Authorization": localStorage.getItem("Authorization")
+          }
+        }
+      ).then(response => {
+            status = response.status;
+            if (status == 204) {
+                return "Account deleted successfully";
+            } else {
+                return response.json();
+            }
+        })
+        .then(json => {
+            data = json;
+        })
+        .catch(e => {
+            status = 500;
+            data = e.message;
+        });
+    console.log("status");
+    console.log(status);
+    console.log("data");
+    console.log(data);
+    return new BankingResponse(status, data);
+}
+
+async function performTransaction(transaction) {
+    console.log("TRANSACTION_API");
+    console.log(TRANSACTION_API);
+
+    console.log("transaction");
+    console.log(transaction);
+
+    let status;
+    let data;
+    await fetch(
+        TRANSACTION_API, 
+        {
+            method: "POST",
+            body: JSON.stringify(transaction),
+            headers: {
+                "Content-Type": "application/json;",
+                "Authorization": localStorage.getItem("Authorization")
+            }
+        }
+      ).then(response => {
+            status = response.status;
+            return response.json();
+        })
+        .then(json => {
+            data = json;
+        })
+        .catch(e => {
+            status = 500;
+            data = e.message;
+        });
+    console.log("status");
+    console.log(status);
+    console.log("data");
+    console.log(data);
+    return new BankingResponse(status, data);
+}
+
 function isUserLoggedIn() {
     if (localStorage.getItem("Authorization"))
         return true;
@@ -207,10 +290,11 @@ function isUserLoggedIn() {
 }
 
 function logOutUser() {
+    showLoadingSpinner();
     localStorage.removeItem("Authorization");
     
-    showMessage(message, 
-        "Logging Out ...", 
-        "SUCCESS");
-    setTimeout(() => {window.location.href = BANKING_LOGIN_UI;}, BUTTION_DISABLE_TIME);
+    //showMessage(message, "Logging Out ...", "SUCCESS");
+    //setTimeout(() => {window.location.href = BANKING_LOGIN_UI;}, 5 * BUTTION_DISABLE_TIME);
+    window.location.href = BANKING_LOGIN_UI;
+    hideLoadingSpinner();
 }

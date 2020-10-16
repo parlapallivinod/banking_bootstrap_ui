@@ -1,5 +1,4 @@
 let loginForm;
-let loginButton;
 let message;
 
 async function postLogin() {
@@ -16,19 +15,16 @@ async function postLogin() {
 
   if (response.status == 200) {
     console.log("success");
-    showMessage(message, 
-      "Logging In as '" + response.data.username + "'", 
-      "SUCCESS");
       localStorage.setItem("Authorization", "Basic " + btoa(response.data.username + ":" + response.data.password));
-      setTimeout(() => {window.location.href = CUSTOMER_HOME_UI;}, BUTTION_DISABLE_TIME);
-    } else {
+      window.location.href = CUSTOMER_HOME_UI;
+  } else {
     console.log("failure");
     showMessage(message, "Invalid credentials", "FAILURE");
   }
   
 }
 
-window.onload = function() {
+window.onload = function() { 
   message = document.querySelector("#message");
   console.log("message");
   console.log(message);
@@ -37,14 +33,10 @@ window.onload = function() {
   console.log("loginForm");
   console.log(loginForm);
 
-  loginButton = document.querySelector("#loginButton");
-  console.log("loginButton");
-  console.log(loginButton);
-
-  loginForm.onsubmit = function(event) {
+  loginForm.onsubmit = async function(event) {
     event.preventDefault();
-    loginButton.disabled = true;
-    postLogin();
-    setTimeout(() => {loginButton.disabled = false;}, BUTTION_DISABLE_TIME);
+    showLoadingSpinner();
+    await postLogin();
+    hideLoadingSpinner();
   }
 }

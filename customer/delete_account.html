@@ -46,16 +46,24 @@
 
 		<div id="message"></div>
 
-		<div class="jumbotron jumbotron-fluid">
-			<div class="container">
-				<h1 class="display-4">Delete Account</h1>
-				<p class="lead">
-					Banking UI is used to simulate financial banking systems present in our society.
-				</p>
-				<p class="lead">
-					Users can browse account details, update their password and delete their account.
-					Users can browse transactions history and perform transactions of type deposit, withdraw and transfer on their accounts.
-				</p>
+		<div class="container">
+			<form novalidate id="accountDeleteForm" >
+				<h3 class="h3 my-4 font-weight-normal text-center">Delete Account</h3>
+
+				<div class="form-group col-md-6 offset-md-3">
+					<h5 class="h5">Are you sure to delete your account?</h5>
+					<span>Note: Accounts with non zero balance cannot be deleted.</span>
+				</div>
+
+				<div class="form-group col-md-6 offset-md-3">
+					<button type="submit" id="accountDeleteButton" class="btn btn-primary col-md-12">Delete Account</button>
+				</div>
+			</form>
+		</div>
+
+		<div id="loadingSpinnerDiv" style="display:none; position:fixed; top:0%; left:0%; height:100%; width:100%; z-index:100; background-color: rgba(0, 0, 0, 0.5);" class="text-center"">
+			<div class="spinner-border text-light m-5" style="width: 3rem; height: 3rem;" role="status">
+				<span class="sr-only">Loading...</span>
 			</div>
 		</div>
 

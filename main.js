@@ -2,7 +2,6 @@ const BANKING_API = "http://localhost:8080/banking/api/v1";
 const CUSTOMER_API = BANKING_API + "/customers";
 const REGISTRATION_API = CUSTOMER_API + "/registration";
 const TRANSACTION_API = CUSTOMER_API + "/transactions";
-const BUTTION_DISABLE_TIME = 1000;
 
 const BANKING_UI = "http://localhost:9090";
 const BANKING_HOME_UI = BANKING_UI + "/home.html";
@@ -65,7 +64,7 @@ async function home() {
             data = text;
         })
         .catch(e => {
-            status = 500;
+            status = 600;
             data = e.message;
         });;
     console.log("status");
@@ -98,7 +97,7 @@ async function registration(customer) {
             data = json;
         })
         .catch(e => {
-            status = 500;
+            status = 600;
             data = e.message;
         });
     console.log("status");
@@ -130,7 +129,7 @@ async function login(customer) {
             data = json;
         })
         .catch(e => {
-            status = 500;
+            status = 600;
             data = e.message;
         });
     console.log("status");
@@ -162,7 +161,7 @@ async function accountDetails() {
             data = json;
         })
         .catch(e => {
-            status = 500;
+            status = 600;
             data = e.message;
         });
     console.log("status");
@@ -199,7 +198,7 @@ async function updateUserPassword(customer) {
             data = json;
         })
         .catch(e => {
-            status = 500;
+            status = 600;
             data = e.message;
         });
     console.log("status");
@@ -235,7 +234,7 @@ async function deleteAccount() {
             data = json;
         })
         .catch(e => {
-            status = 500;
+            status = 600;
             data = e.message;
         });
     console.log("status");
@@ -272,7 +271,40 @@ async function performTransaction(transaction) {
             data = json;
         })
         .catch(e => {
-            status = 500;
+            status = 600;
+            data = e.message;
+        });
+    console.log("status");
+    console.log(status);
+    console.log("data");
+    console.log(data);
+    return new BankingResponse(status, data);
+}
+
+async function getTransactions(page) {
+    let getTransactionsApi = TRANSACTION_API + "?pageNumber=" + page.pageNumber + "&pageSize=" + page.pageSize;
+    console.log("getTransactionsApi");
+    console.log(getTransactionsApi);
+
+    let status;
+    let data;
+    await fetch(
+        getTransactionsApi,
+        {
+          method: "GET",
+          headers: {
+            "Authorization": localStorage.getItem("Authorization")
+          }
+        }
+      ).then(response => {
+            status = response.status;
+            return response.json();
+        })
+        .then(json => {
+            data = json;
+        })
+        .catch(e => {
+            status = 600;
             data = e.message;
         });
     console.log("status");
@@ -293,8 +325,6 @@ function logOutUser() {
     showLoadingSpinner();
     localStorage.removeItem("Authorization");
     
-    //showMessage(message, "Logging Out ...", "SUCCESS");
-    //setTimeout(() => {window.location.href = BANKING_LOGIN_UI;}, 5 * BUTTION_DISABLE_TIME);
     window.location.href = BANKING_LOGIN_UI;
     hideLoadingSpinner();
 }

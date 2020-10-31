@@ -33,7 +33,6 @@ function clearNewTransactionForm() {
 }
 
 async function postPerformTransaction() {
-
     let amount = document.querySelector("#amount").value;
     console.log("amount: " + amount);
     let type = document.querySelector("#type").value
@@ -71,15 +70,10 @@ async function postPerformTransaction() {
         } else if(response.data.status == "FAILURE") {
             showMessage(message, "Transaction failed. " + response.data.message, "FAILURE");
         }
-    } else if (response.status == 400) {
-        console.log("400 failure");
-        showMessage(message, response.data.message + "<br/>" + response.data.details, "FAILURE");
-    } else if (response.status == 500) {
-        console.log("500 failure");
+    } else if (response.status == 600) {
         showMessage(message, response.data, "FAILURE");
     } else {
-      console.log("else failure");
-      showMessage(message, response.data.message + "<br/>" + response.data.details, "FAILURE");
+        showMessage(message, response.data.message + "<br/>" + response.data.details, "FAILURE");
     }
 }
 

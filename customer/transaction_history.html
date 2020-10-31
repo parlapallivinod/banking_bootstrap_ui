@@ -30,15 +30,15 @@
 						<a class="dropdown-item" href="delete_account.html">Delete Account</a>
 						</div>
 					</li>
-					<li class="nav-item dropdown">
+					<li class="nav-item dropdown active">
 						<a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Transaction</a>
 						<div class="dropdown-menu" aria-labelledby="dropdown03">
 						<a class="dropdown-item" href="new_transaction.html">New Transaction</a>
-						<a class="dropdown-item" href="transaction_history.html">Transaction History</a>
+						<a class="dropdown-item active" href="transaction_history.html">Transaction History</a>
 						</div>
 					</li>
 					<li class="nav-item">
-						<button id="logoutButton" class="btn btn-dark bg-dark">Log Out</button>
+						<a id="logoutButton" class="nav-link" href="#">Log Out</a>
 					</li>
 				</ul>
 			</div>
@@ -46,18 +46,69 @@
 
 		<div id="message"></div>
 
-		<div class="jumbotron jumbotron-fluid">
-			<div class="container">
-				<h1 class="display-4">Transaction History</h1>
-				<p class="lead">
-					Banking UI is used to simulate financial banking systems present in our society.
-				</p>
-				<p class="lead">
-					Users can browse account details, update their password and delete their account.
-					Users can browse transactions history and perform transactions of type deposit, withdraw and transfer on their accounts.
-				</p>
+		<div class="container">
+			<h3 class="h3 my-4 font-weight-normal text-center">Transaction History</h3>
+			<form novalidate id="transactionHistoryForm" class="form-inline my-4">
+				<button type="button" class="btn btn-primary mr-4 col-md-1 mb-2" id="previousPageButton">&lt;</button>
+				<input type="number" class="form-control" id="pageNumberInput" value="0" readonly hidden/>
+				<label class="mr-2 mb-2" for="pageSizeSelect">Page Size</label>
+				<select id="pageSizeSelect" class="form-control col-md-2 mr-4 mb-2">
+					<option value="5">5</option>
+					<option value="10" selected>10</option>
+					<option value="25">25</option>
+					<option value="50">50</option>
+					<option value="100">100</option>
+					<option value="250">250</option>
+				</select>
+				<span class="mr-4 mb-2" id="transacionDescSpan">
+					1 to 10 of 123 Transactions (3 of 10 Pages)
+				</span>
+				<button type="button" class="btn btn-primary col-md-1 mr-4 mb-2" id="nextPageButton">&gt;</button>
+			</form>
+		
+			<div class="table-responsive" id="transactionsDiv" style="display: none;">
+				<table class="table table-bordered">
+					<thead class="thead-light">
+						<tr>
+							<th>ID</th>
+							<th>Type</th>
+							<th>Amount</th>
+							<th>From User</th>
+							<th>To User</th>
+							<th>Created Time</th>
+							<th>Status</th>
+							<th>Message</th>
+						</tr>
+					</thead>
+					<tbody id="transactionsBody">
+						<tr>
+							<td>101</td>
+							<td>WITHDRAW</td>
+							<td>100</td>
+							<td>user01</td>
+							<td></td>
+							<td></td>
+							<td>SUCCESS</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>102</td>
+							<td>TRANSFER</td>
+							<td>100</td>
+							<td>user01</td>
+							<td>user02</td>
+							<td></td>
+							<td>SUCCESS</td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div id="noTransactionsFoundDiv" style="display: none;">
+				No transactions history found
 			</div>
 		</div>
+		
 
 		<div id="loadingSpinnerDiv" style="display:none; position:fixed; top:0%; left:0%; height:100%; width:100%; z-index:100; background-color: rgba(0, 0, 0, 0.5);" class="text-center"">
 			<div class="spinner-border text-light m-5" style="width: 3rem; height: 3rem;" role="status">

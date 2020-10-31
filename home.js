@@ -1,18 +1,23 @@
-
+let message;
 
 async function getHome() {
-    let homeResponse = await home();
-    console.log("homeResponse");
-    console.log(homeResponse)
+    let response = await home();
+    console.log("response");
+    console.log(response)
    
-    if (homeResponse.status == 200) {
-        console.log("Success");
+    if (response.status == 200) {
+    } else if (response.status == 600) {
+        showMessage(message, response.data, "FAILURE");
     } else {
-        console.log("Failure");
+        showMessage(message, response.data.message + "<br/>" + response.data.details, "FAILURE");
     }
 }
 
 window.onload = async function(){
+    message = document.querySelector("#message");
+    console.log("message");
+    console.log(message);
+
     showLoadingSpinner();
     await getHome();
     hideLoadingSpinner(); 

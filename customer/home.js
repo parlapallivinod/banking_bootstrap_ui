@@ -6,19 +6,15 @@ async function getAccountDetails() {
     console.log(accountDetailsResponse)
     
     if (accountDetailsResponse.status == 200) {
-        console.log("Success");
-                
         let username = document.querySelector("#username");
         username.innerHTML = accountDetailsResponse.data.username;
 
         let balance = document.querySelector("#balance");
         balance.innerHTML = accountDetailsResponse.data.balance;
-    } else if (response.status == 500) {
-        console.log("failure");
+    } else if (response.status == 600) {
         showMessage(message, response.data, "FAILURE");
     } else {
-        console.log("Failure");
-        showMessage(message, response.data, "FAILURE");
+        showMessage(message, response.data.message + "<br/>" + response.data.details, "FAILURE");
     }
 }
 

@@ -14,13 +14,11 @@ async function postLogin() {
   console.log(response);
 
   if (response.status == 200) {
-    console.log("success");
       localStorage.setItem("Authorization", "Basic " + btoa(response.data.username + ":" + response.data.password));
       window.location.href = CUSTOMER_HOME_UI;
   } else {
-    console.log("failure");
     showMessage(message, "Invalid credentials", "FAILURE");
-  }
+  } 
   
 }
 

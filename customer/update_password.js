@@ -42,16 +42,13 @@ async function postUpdateUserPassword() {
   
     if (response.status == 200) {
         localStorage.setItem("Authorization", "Basic " + btoa(response.data.username + ":" + response.data.password));
-        console.log("success");
         showMessage(message, 
             "Password updated successfully", 
             "SUCCESS");
             clearPasswordUpdateForm();
-    } else if (response.status == 500) {
-        console.log("failure");
+    } else if (response.status == 600) {
         showMessage(message, response.data, "FAILURE");
     } else {
-      console.log("failure");
       showMessage(message, response.data.message + "<br/>" + response.data.details, "FAILURE");
     }
 }

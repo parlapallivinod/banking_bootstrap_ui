@@ -10,13 +10,10 @@ async function postDeleteAccount() {
    
     if (response.status == 204) {
         localStorage.removeItem("Authorization");
-        console.log("Success");
         showMessage(message, response.data , "SUCCESS");
-    } else if (response.status == 500) {
-        console.log("Failure");
+    } else if (response.status == 600) {
         showMessage(message, response.data, "FAILURE");
     } else {
-        console.log("Failure");
         showMessage(message, response.data.message + "<br/>" + response.data.details, "FAILURE");
     }
 }

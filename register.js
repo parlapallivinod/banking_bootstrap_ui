@@ -31,11 +31,9 @@ async function postRegistration() {
       "Registration completed successfully. Please login into you account to perform transactions.", 
       "SUCCESS");
       clearRegistrationForm();
-  } else if (response.status == 500) {
-    console.log("failure");
+  } else if (response.status == 600) {
     showMessage(message, response.data, "FAILURE");
   } else {
-    console.log("failure");
     showMessage(message, response.data.message + "<br/>" + response.data.details, "FAILURE");
   }
 }

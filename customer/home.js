@@ -7,10 +7,10 @@ async function getAccountDetails() {
     
     if (accountDetailsResponse.status == 200) {
         let username = document.querySelector("#username");
-        username.innerHTML = accountDetailsResponse.data.username;
+        username.innerText = accountDetailsResponse.data.username;
 
         let balance = document.querySelector("#balance");
-        balance.innerHTML = accountDetailsResponse.data.balance;
+        balance.innerText = accountDetailsResponse.data.balance;
     } else if (response.status == 600) {
         showMessage(message, response.data, "FAILURE");
     } else {

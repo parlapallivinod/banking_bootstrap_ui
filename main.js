@@ -49,31 +49,6 @@ function showMessage(element, message, type) {
     
 }
 
-async function home() {
-    console.log("BANKING_API");
-    console.log(BANKING_API)
-
-    let status;
-    let data;
-    await fetch(BANKING_API)
-        .then(response => {
-            status = response.status;
-            return response.text();
-        })
-        .then(text => {
-            data = text;
-        })
-        .catch(e => {
-            status = 600;
-            data = e.message;
-        });;
-    console.log("status");
-    console.log(status);
-    console.log("data");
-    console.log(data);
-    return new BankingResponse(status, data);
-}
-
 async function registration(customer) {
     console.log("REGISTRATION_API");
     console.log(REGISTRATION_API)

@@ -1,12 +1,10 @@
-const BANKING_API = "http://localhost:8080/banking/api/v1";
+const BANKING_API = "https://bankingapi-i9ls.onrender.com/banking/api/v1";
 const CUSTOMER_API = BANKING_API + "/customers";
 const REGISTRATION_API = CUSTOMER_API + "/registration";
 const TRANSACTION_API = CUSTOMER_API + "/transactions";
 
-const BANKING_UI = "http://localhost:9090";
-const BANKING_HOME_UI = BANKING_UI + "/home.html";
-const BANKING_LOGIN_UI = BANKING_UI + "/login.html";
-const CUSTOMER_HOME_UI = BANKING_UI + "/customer/home.html";
+const BANKING_LOGIN_UI = "../login.html";
+const CUSTOMER_HOME_UI = "./customer/home.html";
 
 function BankingResponse(status, data) {
     this.status = status;
